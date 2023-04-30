@@ -3,7 +3,6 @@
 #include <string>
 #include <unordered_map>
 #include "glm.hpp"
-#include "gtc/matrix_transform.hpp"
 
 struct ShaderProgramSource {
 	std::string Vertex;
@@ -16,7 +15,6 @@ private:
 	unsigned int m_ShaderId;
 	unsigned int texture;
 	std::unordered_map<std::string, unsigned int> uniform_cache;
-	static std::unordered_map<std::string, unsigned int> program_shaders;
 public:
 	Shader(const std::string& filepath);
 	Shader(const std::string& vertex, const std::string& fragment);
@@ -25,15 +23,19 @@ public:
 	void Bind() const;
 	void UnBind() const;	
 
-	void SetV2DUniforms(const std::string& name, double x, double y);
-	void SetV4DUniforms(const std::string& name, double x, double y, double z, double w);
-	void SetV2Uniforms(const std::string& name, float x, float y);
 	void SetV4Uniforms(const std::string& name, float x, float y, float z, float w);
 	void SetV3Uniforms(const std::string& name, float x, float y, float z);
+	void SetV2Uniforms(const std::string& name, float x, float y);
+	void SetV4Uniforms(const std::string& name, glm::vec4& v);
+	void SetV3Uniforms(const std::string& name, glm::vec3& v);
+	void SetV2Uniforms(const std::string& name, glm::vec2& v);
+
 	void SetMat4Uniforms(const std::string& name, glm::mat4& matrix);
 	void SetIntUniforms(const std::string& name, int i);
 	void SetFloatUniforms(const std::string& name, float i);
-	void SetDoubleUniforms(const std::string& name, double i);
+
+	Shader* Duplicate();
+
 private:
 	unsigned int GetGLUniformLocation(const std::string& name);
 	ShaderProgramSource ParseShader(const std::string& filepath);

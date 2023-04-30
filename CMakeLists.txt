@@ -6,7 +6,16 @@ enable_testing()
 
 add_compile_definitions(GLEW_STATIC)
 
-add_executable(GameEngine src/main.cpp src/Engine/Engine.cpp src/Engine/Window.cpp src/Engine/Shader.cpp)
+add_executable(GameEngine 
+    src/main.cpp 
+    src/Engine/Engine.cpp 
+    src/Engine/Window.cpp 
+    src/Engine/Shader.cpp
+    src/Engine/Camera.cpp
+    src/Engine/Mesh.cpp 
+    src/Engine/VertexBuffer.cpp 
+    src/Engine/EBO.cpp
+)
 
 set_property(TARGET GameEngine PROPERTY CXX_STANDARD 20)
 
